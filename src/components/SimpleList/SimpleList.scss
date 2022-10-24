@@ -1,0 +1,79 @@
+
+.simple-list-container {
+  padding: 10px 20px;
+  border-bottom: 1px dashed lightgray;
+
+  &:last-child {
+    border-bottom: none;
+  }
+
+  .simple-list-title {
+    font-size: 18px;
+    font-weight: 300;
+    color: #2c596e;
+    margin-bottom: 10px;
+  }
+  .simple-list-body {
+    font-weight: 300;
+    color: #484848;
+    font-size: 14px;
+    font-style: oblique;
+    margin-bottom: 10px;
+  }
+  .simple-list-email {
+    font-weight: 300;
+    color: #6a7a88;
+    font-size: 14px;
+    font-style: oblique;
+    margin: 10px 0;
+  }
+
+  .button-comments {
+    width: 120px;
+    box-sizing: border-box;
+    border-radius: 5px;
+    margin-bottom: 5px;
+    transition: background-color 1s;
+    &:disabled {
+      background-color: whitesmoke;
+    }
+  }
+}
+
+.button-load{
+  font-style: oblique;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.comments-box {
+  box-sizing: border-box;
+  padding: 10px;
+  // box-shadow: 0px 1px 6px grey;
+  // margin: 20px;
+  border-radius: 6px;
+  max-height: 0;
+  overflow: hidden;
+  width: 80%;
+  margin: auto;
+  transition: max-height .6s ease-in-out;
+
+  .comments-header {
+    font-size: 20px;
+    font-weight: 300;
+    text-align: center;
+    color: gray;
+    border-bottom: 1px solid whitesmoke;
+    padding-bottom: 5px;
+  }
+
+  .simple-list-title {
+    font-size: 16px;
+    color: #337fcb;
+  }
+
+  .simple-list-body, .simple-list-email {
+    font-size: 12px;
+  }
+
+}
