@@ -1,0 +1,16 @@
+.button-with-loading {
+  width: 120px;
+  box-sizing: border-box;
+  border-radius: 5px;
+  margin-bottom: 5px;
+  transition: background-color 1s;
+  &:disabled {
+    background-color: whitesmoke;
+  }
+
+  .button-load {
+    font-style: oblique;
+    font-size: 13px;
+    font-weight: 500;
+  }
+}

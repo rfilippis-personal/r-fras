@@ -9,17 +9,17 @@ const Posts = ({ scrollRef }) => {
     { id: 2, description: "Almoçar", status: false },
   ]);
 
-  const inputTextHandle = (e) => {
+  const inputTextHandler = (e) => {
     setInputText(e.target.value);
   };
 
-  const addTodosHandle = () => {
+  const addTodosHandler = () => {
     const _id = !todos.length ? 0 : todos.length;
     setTodos([...todos, { id: _id, description: inputText, status: false }]);
     setInputText("");
   };
 
-  const statusTodoHandle = (_todo) => {
+  const statusTodoHandler = (_todo) => {
     setTodos(
       todos.map((todo) => {
         if (todo.id === _todo.id) {
@@ -43,9 +43,9 @@ const Posts = ({ scrollRef }) => {
             className="input-text"
             type="text"
             value={inputText}
-            onChange={inputTextHandle}
+            onChange={inputTextHandler}
           ></input>
-          <button type="button" onClick={addTodosHandle}>
+          <button type="button" onClick={addTodosHandler}>
             add todo
           </button>
         </div>
@@ -57,7 +57,7 @@ const Posts = ({ scrollRef }) => {
                 <input
                   type="checkbox"
                   checked={todo.status}
-                  onChange={() => statusTodoHandle(todo)}
+                  onChange={() => statusTodoHandler(todo)}
                 />
                 <span className={todo.status ? "todo-done" : ""}>
                   {todo.description}

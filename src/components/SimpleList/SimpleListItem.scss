@@ -1,0 +1,42 @@
+.simple-list-container {
+  padding: 10px 20px;
+  border-bottom: 1px dashed lightgray;
+
+  &:last-child {
+    border-bottom: none;
+  }
+
+  .simple-list-title {
+    font-size: 18px;
+    font-weight: 300;
+    color: #2c596e;
+    margin-bottom: 10px;
+    text-transform: capitalize;
+  }
+  .simple-list-body {
+    font-weight: 300;
+    color: #484848;
+    font-size: 14px;
+    font-style: oblique;
+    margin-bottom: 10px;
+  }
+  .simple-list-email {
+    font-weight: 300;
+    color: #6a7a88;
+    font-size: 14px;
+    font-style: oblique;
+    margin: 10px 0;
+  }
+}
+
+.comments-box {
+  .simple-list-title {
+    font-size: 16px;
+    color: #337fcb;
+  }
+
+  .simple-list-body,
+  .simple-list-email {
+    font-size: 12px;
+  }
+}

@@ -1,7 +1,8 @@
-import React from "react";
+import React, { Fragment } from "react";
 import "components/SimpleList/SimpleList.scss";
 import { useState, useMemo } from "react";
-import { ThreeDots } from "react-loading-icons";
+import ButtonWithLoading from "components/UI/ButtonWithLoading/ButtonWithLoading";
+import SimpleListItem from "./SimpleListItem";
 
 const SimpleList = ({ list, showButtonComment = false }) => {
   const [posts, setPosts] = useState(list);
@@ -19,38 +20,29 @@ const SimpleList = ({ list, showButtonComment = false }) => {
     return data;
   };
 
-  const handleOpenHideDetails = async (currentItem, index) => {
+  const openHideDetailsHandler = async (currentItem, index) => {
     const detailsInfo = !currentItem?.detailsInfo
       ? await getDetails(currentItem)
       : currentItem.detailsInfo;
+
+    const postsNormalize = () => {
+      return posts.map((post) => {
+        if (currentItem.id === post.id) {
+          return {
+            ...post,
+            detailsInfo,
+            showDetails: !currentItem?.showDetails,
+          };
+        }
+        return post;
+      });
+    };
+
     if (currentItem?.showDetails) {
-      setTimeout(() => {
-        setPosts(
-          posts.map((post) => {
-            if (currentItem.id === post.id) {
-              return {
-                ...post,
-                detailsInfo,
-                showDetails: !currentItem?.showDetails,
-              };
-            }
-            return post;
-          })
-        );
-      }, 600);
+      // Timeout to wait close animation
+      setTimeout(() => setPosts(postsNormalize), 600);
     } else {
-      setPosts(
-        posts.map((post) => {
-          if (currentItem.id === post.id) {
-            return {
-              ...post,
-              detailsInfo,
-              showDetails: !currentItem?.showDetails,
-            };
-          }
-          return post;
-        })
-      );
+      setPosts(postsNormalize);
     }
 
     const content = childRefs[index].current;
@@ -65,60 +57,38 @@ const SimpleList = ({ list, showButtonComment = false }) => {
   };
 
   return (
-    <>
+    <Fragment>
       {posts.map((currentItem, index) => (
-        <div className="simple-list-container" key={currentItem.id}>
-          {currentItem.title && (
-            <div className="simple-list-title">{currentItem.title}</div>
-          )}
-          {currentItem.name && (
-            <div className="simple-list-title">{currentItem.name}</div>
-          )}
-          <div className="simple-list-body">{currentItem.body}</div>
-          {currentItem.email && (
-            <div className="simple-list-email">
-              Coment from {currentItem.email}
-            </div>
-          )}
-
+        <SimpleListItem
+          key={currentItem.id}
+          title={currentItem.title}
+          name={currentItem.name}
+          body={currentItem.body}
+          email={currentItem.email}
+        >
           {showButtonComment && (
             <div className="comments-box" ref={childRefs[index]}>
               {currentItem?.showDetails && (
-                <>
+                <Fragment>
                   <div className="comments-header">Comments</div>
                   <SimpleList list={currentItem.detailsInfo} />
-                </>
+                </Fragment>
               )}
             </div>
           )}
 
           {showButtonComment && (
-            <button
-              className="button-comments"
-              onClick={() => handleOpenHideDetails(currentItem, index)}
-              disabled={isPendingId === currentItem.id}
-            >
-              {isPendingId === currentItem.id && (
-                <div className="button-load">
-                  Loading
-                  <ThreeDots
-                    stroke="#000"
-                    fill="#2d2d2d"
-                    height=".3em"
-                    width="25px"
-                  />
-                </div>
-              )}
-              {isPendingId !== currentItem.id && (
-                <span>
-                  {currentItem?.showDetails ? "Hide " : "Show "} comments
-                </span>
-              )}
-            </button>
+            <ButtonWithLoading
+              onClick={openHideDetailsHandler.bind(null, currentItem, index)}
+              isPending={isPendingId === currentItem.id}
+              loadingText="Loading"
+              defaultText="comments"
+              show={currentItem?.showDetails}
+            />
           )}
-        </div>
+        </SimpleListItem>
       ))}
-    </>
+    </Fragment>
   );
 };
 
